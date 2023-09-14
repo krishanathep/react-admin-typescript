@@ -6,6 +6,7 @@ import WithOutNavbar from "./layouts/WithOutNavbar";
 import Signin from "./pages/auth/signin";
 import Home from './pages/home'
 import Products from "./pages/products";
+import ProductDetail from './pages/products/detail'
 
 const RoutesPage = () => {
   return (
@@ -17,6 +18,7 @@ const RoutesPage = () => {
         <Route element={<WithNavbar/>}>
         <Route path="/" element={<Home/>}/>
         <Route path="/products" element={<Products/>}/>
+        <Route path="/products/detail/:id" element={<ProductDetail />}/>
         </Route>
       </Routes>
     </Router>

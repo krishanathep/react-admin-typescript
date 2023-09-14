@@ -12,8 +12,6 @@ type resultProps = {
 const Products = () => {
   const [loading, setLoading] = useState(false);
   const [meals, setMeals] = useState<resultProps[]>([]);
-  const [meal, setMeal] = useState("");
-  const [dataFilter] = useState(["strMeal"]);
 
   const getData = async () => {
     try {
@@ -30,14 +28,6 @@ const Products = () => {
       setLoading(false);
     }
   };
-
-  const searchMeal =(meals)=>{
-    return meals.filter((item)=>{
-      return dataFilter.some((filter)=>{
-       return item[filter].toString().toLowerCase().indexOf(meal.toLowerCase())>-1
-      })
-    })
-  }
 
   useEffect(() => {
     getData();
@@ -75,14 +65,12 @@ const Products = () => {
                   <div className="card-body">
                     <input 
                     type="search" 
-                    value={meal}
-                    onChange={(e)=>setMeal(e.target.value)}
                     className="form-control" 
                     placeholder="Search" />
                   </div>
                 </div>
               </div>
-              {searchMeal(meals).map((meal:resultProps) => (
+              {meals.map((meal:resultProps) => (
                 <div className="col-md-2" key={meal.idMeal}>
                   <div className="card">
                     <Link to={"/products/detail/" + meal.idMeal}>

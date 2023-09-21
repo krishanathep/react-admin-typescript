@@ -8,6 +8,7 @@ import Signin from "./pages/auth/signin";
 import Home from "./pages/home";
 import Products from "./pages/products";
 import ProductDetail from "./pages/products/detail";
+import Blogs from './pages/blogs'
 
 const RoutesPage = () => {
   return (
@@ -26,6 +27,7 @@ const RoutesPage = () => {
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/detail/:id" element={<ProductDetail />} />
+          <Route path="/blogs" element={<Blogs/>} />
         </Route>
       </Routes>
     </Router>

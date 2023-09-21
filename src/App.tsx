@@ -5,7 +5,10 @@ import "./App.css";
 function App() {
   return (
     <>
-      <AuthProvider authType={"cookie"} authName={"_auth"}>
+      <AuthProvider 
+        authType={"cookie"} 
+        authName={"_auth"}
+        >
         <Routes />
       </AuthProvider>
     </>

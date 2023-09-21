@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSignIn } from "react-auth-kit";
+import { useSignIn, useAuthUser } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
 import Preloader from "../../components/Preloader";
 import axios from "axios";
 
 const Signin = () => {
-
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const signIn = useSignIn();
@@ -36,7 +35,7 @@ const Signin = () => {
             })
           ) {
             navigate("/");
-            console.log(res.data.user)
+            console.log(useAuthUser)
           }
         } else {
           console.log("เกิดข้อผิดพลาด!!!");

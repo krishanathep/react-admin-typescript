@@ -29,11 +29,17 @@ const Sidebar = () => {
                 </Link>
               </li>
               <li className="nav-item">
+                <Link to="/blogs" className="nav-link">
+                  <i className="nav-icon far fa-comment-alt"></i>
+                  <p>Blogs</p>
+                </Link>
+              </li>
+              {/* <li className="nav-item">
                 <Link to="/products" className="nav-link">
                   <i className="nav-icon fas fa-hamburger"></i>
                   <p>Products</p>
                 </Link>
-              </li>
+              </li> */}
              </ul>
           </nav>
         </div>

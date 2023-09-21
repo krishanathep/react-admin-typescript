@@ -4,9 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
 
   const navigate = useNavigate()
-  //const auth = useAuthUser()
   const signOut = useSignOut()
-
   const handleSignOut = () => {
     signOut()
     navigate('/auth/signin')

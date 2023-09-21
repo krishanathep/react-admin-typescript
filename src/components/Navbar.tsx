@@ -1,4 +1,17 @@
+import { useSignOut,useAuthUser } from 'react-auth-kit'
+import { useNavigate } from "react-router-dom";
+
 const Navbar = () => {
+
+  const navigate = useNavigate()
+  const auth = useAuthUser()
+  const signOut = useSignOut()
+
+  const handleSignOut = () => {
+    signOut()
+    navigate('/auth/signin')
+  }
+
   return (
     <nav className="main-header navbar navbar-expand navbar-white navbar-light">
       <ul className="navbar-nav">
@@ -15,7 +28,7 @@ const Navbar = () => {
             data-toggle="dropdown"
             href="#"
           >
-            <i className="fas fa-user-circle fa-lg"></i> Hello : Adminstrator
+            <i className="fas fa-user-circle fa-lg"></i> Hello : Administrator
           </a>
           <div className="dropdown-menu dropdown-menu-md dropdown-menu-right">
             <a href="#" className="dropdown-item">
@@ -26,7 +39,7 @@ const Navbar = () => {
               <i className="fas fa-cog mr-2"></i>Settings
             </a>
             <hr className="dropdown-divider" />
-            <a href="#" className="dropdown-item">
+            <a href="#" className="dropdown-item" onClick={handleSignOut}>
               <i className="fas fa-sign-out-alt mr-2"></i> Sign out
             </a>
           </div>

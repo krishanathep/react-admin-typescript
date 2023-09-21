@@ -1,12 +1,15 @@
-import Routes from './Routes'
-import './App.css'
+import { AuthProvider } from "react-auth-kit";
+import Routes from "./Routes";
+import "./App.css";
 
 function App() {
   return (
     <>
-     <Routes />
+      <AuthProvider authType={"cookie"} authName={"_auth"}>
+        <Routes />
+      </AuthProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

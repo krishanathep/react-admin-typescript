@@ -13,7 +13,7 @@ const Products = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [meals, setMeals] = useState<resultProps[]>([]);
   const [food, setFood] = useState<string>("");
-  const [dataFilter] = useState(["strMeal"]);
+  const [dataFilter] = useState<string[]>(["strMeal"]);
 
   const getData = async () => {
     try {

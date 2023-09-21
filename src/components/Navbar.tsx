@@ -1,10 +1,10 @@
-import { useSignOut,useAuthUser } from 'react-auth-kit'
+import { useSignOut } from 'react-auth-kit'
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
 
   const navigate = useNavigate()
-  const auth = useAuthUser()
+  //const auth = useAuthUser()
   const signOut = useSignOut()
 
   const handleSignOut = () => {

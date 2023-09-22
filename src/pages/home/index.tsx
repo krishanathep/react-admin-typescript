@@ -36,10 +36,10 @@ const Home = () => {
               <div className="col-md-3">
                 <div className="info-box">
                   <span className="info-box-icon bg-danger elevation-1">
-                    <i className="fas fa-thumbs-up"></i>
+                    <i className="far fa-comment-alt"></i>
                   </span>
                   <div className="info-box-content">
-                    <span className="info-box-text">Likes</span>
+                    <span className="info-box-text">Blogs</span>
                     <span className="info-box-number">41,410</span>
                   </div>
                 </div>

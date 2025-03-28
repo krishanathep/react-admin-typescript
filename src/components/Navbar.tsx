@@ -1,10 +1,18 @@
-import { useSignOut } from 'react-auth-kit'
+import useSignOut from 'react-auth-kit/hooks/useSignOut';
+import useAuthUser from 'react-auth-kit/hooks/useAuthUser';
 import { useNavigate } from "react-router-dom";
+
+interface IUserData {
+  name: string,
+}
 
 const Navbar = () => {
 
   const navigate = useNavigate()
   const signOut = useSignOut()
+  const authUser = useAuthUser<IUserData>()
+  const name = authUser?.name
+  
   const handleSignOut = () => {
     signOut()
     navigate('/auth/signin')
@@ -26,7 +34,7 @@ const Navbar = () => {
             data-toggle="dropdown"
             href="#"
           >
-            <i className="fas fa-user-circle fa-lg"></i> Hello : Administrator
+            <i className="fas fa-user-circle fa-lg"></i>{' '}{name}
           </a>
           <div className="dropdown-menu dropdown-menu-md dropdown-menu-right">
             <a href="#" className="dropdown-item">

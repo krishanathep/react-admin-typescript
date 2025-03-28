@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSignIn, useAuthUser } from "react-auth-kit";
+import useSignIn from 'react-auth-kit/hooks/useSignIn';
 import { useNavigate } from "react-router-dom";
 import Preloader from "../../components/Preloader";
 import axios from "axios";
@@ -24,22 +24,17 @@ const Signin = () => {
     try {
       setLoading(true);
       await axios.post(REACT_APP_API, data).then((res) => {
-        const token = res.data.access_token;
-        if (token != null) {
           if (
             signIn({
-              token: res.data.access_token,
-              authState: res.data.user,
-              expiresIn: 60,
-              tokenType: "Bearer",
+              auth: {
+                token: res.data.access_token,
+                type: "Bearer",
+              },
+              userState: res.data.user,
             })
           ) {
             navigate("/");
-            console.log(useAuthUser)
           }
-        } else {
-          console.log("เกิดข้อผิดพลาด!!!");
-        }
       });
     } catch (error) {
       console.log(error);
@@ -60,11 +55,11 @@ const Signin = () => {
     <>
       <div className="hold-transition login-page">
         <div className="login-box">
-          <div className="login-logo">
+          {/* <div className="login-logo">
             <a href="#">
               <b>Admin</b>LTE
             </a>
-          </div>
+          </div> */}
           <div id="auth_bg" className="card">
             <div className="card-body login-card-body">
               <p className="login-box-msg">Sign in to start your session</p>
@@ -72,7 +67,7 @@ const Signin = () => {
                 <div className="input-group mb-3">
                   <input
                     className="form-control"
-                    value={"test@gmail.com"}
+                    //value={"test@gmail.com"}
                     type="email"
                     placeholder="Email"
                     {...register("email", { required: true })}
@@ -89,7 +84,7 @@ const Signin = () => {
                 <div className="input-group mb-3">
                   <input
                     className="form-control"
-                    value={"123456"}
+                    //value={"123456"}
                     type="password"
                     placeholder="Password"
                     {...register("password", { required: true })}

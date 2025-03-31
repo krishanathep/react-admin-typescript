@@ -1,32 +1,14 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from 'react-router-dom'
-import axios from "axios";
 import dayjs from "dayjs";
-
-type resultProps = {
-  id: number;
-  title: string;
-  content: string;
-  author: string;
-  image: string;
-  created_at: any;
-  updated_at: any;
-};
+import { useBlogStore } from "../../stores/blogStrore";
 
 const Blogs = () => {
-  const [blogs, setBlogs] = useState<resultProps[]>([]);
-
-  const getData = async () => {
-    await axios
-      .get("https://full-stack-app.com/laravel_auth_jwt_api/public/api/blogs")
-      .then((res) => {
-        console.log(res.data.blogs);
-        setBlogs(res.data.blogs);
-      });
-  };
+  // Use The Zustand store
+  const { blogs, isLoading, error, fetchBlogs } = useBlogStore();
 
   useEffect(() => {
-    getData();
+    fetchBlogs()
   }, []);
 
   return (
@@ -64,54 +46,67 @@ const Blogs = () => {
                         </div>
                       </div>
                     </div>
-                    <table className="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>ID</th>
-                          <th>Image</th>
-                          <th>Title</th>
-                          <th>Content</th>
-                          <th>Author</th>
-                          <th>Created at</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      {blogs.map((blog, index) => (
-                        <tbody key={blog.id}>
+                    
+                    {error && (
+                      <div className="alert alert-danger">{error}</div>
+                    )}
+                    
+                    {isLoading ? (
+                      <div className="text-center my-3">
+                        <div className="spinner-border text-primary" role="status">
+                          <span className="sr-only">Loading...</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <table className="table table-bordered">
+                        <thead>
                           <tr>
-                            <td>{index + 1}</td>
-                            <td>
-                              <img
-                                className="img-thumbnail"
-                                src={
-                                  "https://full-stack-app.com/laravel_auth_jwt_api/public/uploads/" +
-                                  blog.image
-                                }
-                                alt={blog.title}
-                                width={"50"}
-                              />
-                            </td>
-                            <td>{blog.title}</td>
-                            <td>{blog.content}</td>
-                            <td>{blog.author}</td>
-                            <td>
-                              {dayjs(blog.created_at).format("DD-MMM-YYYY")}
-                            </td>
-                            <td>
-                              <button className="btn btn-primary btn-sm">
-                                <i className="fas fa-eye"></i>
-                              </button>{" "}
-                              <button className="btn btn-info btn-sm">
-                                <i className="fas fa-edit"></i>
-                              </button>{" "}
-                              <button className="btn btn-danger btn-sm">
-                                <i className="fas fa-trash"></i>
-                              </button>
-                            </td>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>Author</th>
+                            <th>Created at</th>
+                            <th>Actions</th>
                           </tr>
+                        </thead>
+                        <tbody>
+                          {blogs.map((blog, index) => (
+                            <tr key={blog.id}>
+                              <td>{index + 1}</td>
+                              <td>
+                                <img
+                                  className="img-thumbnail"
+                                  src={
+                                    "https://full-stack-app.com/laravel_auth_jwt_api/public/uploads/" +
+                                    blog.image
+                                  }
+                                  alt={blog.title}
+                                  width={"50"}
+                                />
+                              </td>
+                              <td>{blog.title}</td>
+                              <td>{blog.content}</td>
+                              <td>{blog.author}</td>
+                              <td>
+                                {dayjs(blog.created_at).format("DD-MMM-YYYY")}
+                              </td>
+                              <td>
+                                <button className="btn btn-primary btn-sm">
+                                  <i className="fas fa-eye"></i>
+                                </button>{" "}
+                                <button className="btn btn-info btn-sm">
+                                  <i className="fas fa-edit"></i>
+                                </button>{" "}
+                                <button className="btn btn-danger btn-sm">
+                                  <i className="fas fa-trash"></i>
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
                         </tbody>
-                      ))}
-                    </table>
+                      </table>
+                    )}
                   </div>
                 </div>
               </div>

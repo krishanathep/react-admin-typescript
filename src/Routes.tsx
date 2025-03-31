@@ -13,6 +13,7 @@ import ProductDetail from "./pages/products/detail";
 import Blogs from "./pages/blogs";
 import BlogCreate from "./pages/blogs/create";
 
+// ถ้าไม่มีการ login จะไม่สามารถเข้าใช้งานได้และ redirect ไปหน้า login
 const RequireAuth: React.FC = () => {
   const isAuthenticated = useIsAuthenticated();
   return isAuthenticated ? <Outlet /> : <Navigate to="/auth/signin" replace />;

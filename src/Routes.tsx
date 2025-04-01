@@ -12,6 +12,7 @@ import ProductDetail from "./pages/products/detail";
 
 import Blogs from "./pages/blogs";
 import BlogCreate from "./pages/blogs/create";
+import BlogUpdate from './pages/blogs/update'
 
 // ถ้าไม่มีการ login จะไม่สามารถเข้าใช้งานได้และ redirect ไปหน้า login
 const RequireAuth: React.FC = () => {
@@ -33,6 +34,7 @@ const RoutesPage: React.FC = () => {
             <Route path="/products/detail/:id" element={<ProductDetail />} />
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/blogs/create" element={<BlogCreate />} />
+            <Route path="/blogs/update/:id" element={<BlogUpdate/>}/>
           </Route>
         </Route>
       </Routes>

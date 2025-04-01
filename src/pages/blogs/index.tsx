@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import dayjs from "dayjs";
 import { useBlogStore } from "../../stores/blogStrore";
 import { DataTable } from "mantine-datatable";
@@ -8,11 +8,10 @@ const PAGE_SIZES = [10, 20, 30];
 
 const Blogs = () => {
   // Use The Zustand store
-  const { blogs, fetchBlogs } = useBlogStore();
+  const { blogs, fetchBlogs, isLoading } = useBlogStore();
 
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
   const [records, setRecords] = useState(blogs.slice(0, pageSize));
 
   useEffect(() => {
@@ -24,7 +23,6 @@ const Blogs = () => {
       const from = (page - 1) * pageSize;
       const to = from + pageSize;
       setRecords(blogs.slice(from, to));
-      setLoading(false);
     };
     getData();
   }, [page, pageSize, blogs]); // Add dependencies for page, pageSize, and blogs
@@ -57,6 +55,7 @@ const Blogs = () => {
           <div className="container-fluid">
             <div className="row">
               <div className="col-md-12">
+                <Link to={'/blogs/create'} className="btn btn-success mb-2">Blogs Create</Link>
                 <div className="card">
                   <div className="card-body">
                     <DataTable
@@ -64,11 +63,13 @@ const Blogs = () => {
                         fontFamily: "Prompt",
                       }}
                       withBorder
+                      striped
+                      highlightOnHover
                       withColumnBorders
-                      verticalSpacing="md"
+                      //verticalSpacing="md"
                       fontSize={"md"}
                       records={records}
-                      fetching={loading}
+                      fetching={isLoading}
                       idAccessor="id"
                       minHeight={200}
                       totalRecords={blogs.length}
@@ -77,7 +78,7 @@ const Blogs = () => {
                       onPageChange={(p) => setPage(p)}
                       recordsPerPageOptions={PAGE_SIZES}
                       onRecordsPerPageChange={setPageSize}
-                      paginationColor="gray"
+                      paginationColor="blue"
                       paginationSize="md"
                       columns={[
                         {
@@ -130,14 +131,14 @@ const Blogs = () => {
                           accessor: "actions",
                           title: "ดำเนินการ",
                           textAlignment: "center",
-                          render: () => (
+                          render: (blogs) => (
                             <>
                               <button className="btn btn-primary btn-sm">
                                 <i className="fas fa-eye"></i>
                               </button>{" "}
-                              <button className="btn btn-info btn-sm">
+                              <Link to={'/blogs/update/'+blogs.id} className="btn btn-info btn-sm">
                                 <i className="fas fa-edit"></i>
-                              </button>{" "}
+                              </Link>{" "}
                               <button className="btn btn-danger btn-sm">
                                 <i className="fas fa-trash"></i>
                               </button>

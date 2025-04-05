@@ -16,6 +16,8 @@ import BlogUpdate from './pages/blogs/update'
 
 import Meeting from './pages/mettings/'
 import MeetingCreate from './pages/mettings/create'
+import MeetingUpdate from './pages/mettings/update'
+import MeetingView from './pages/mettings/view'
 
 // ถ้าไม่มีการ login จะไม่สามารถเข้าใช้งานได้และ redirect ไปหน้า login
 const RequireAuth: React.FC = () => {
@@ -40,6 +42,8 @@ const RoutesPage: React.FC = () => {
             <Route path="/blogs/update/:id" element={<BlogUpdate/>}/>
             <Route path="/meetings" element={<Meeting/>}/>
             <Route path="/meetings/create" element={<MeetingCreate />} />
+            <Route path="/meetings/update/:id" element={<MeetingUpdate />} />
+            <Route path="/meetings/view/:id" element={<MeetingView />} />
           </Route>
         </Route>
       </Routes>

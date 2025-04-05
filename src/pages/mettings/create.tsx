@@ -1,28 +1,24 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useMeetingStore } from "../../stores/meetingStore"// Adjust import path as needed
 
 const Create = () => {
   const navigate = useNavigate();
+  const { addMeeting, isLoading } = useMeetingStore();
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handleCreateSubmit = async (data: any) => {
+  const handleCreateSubmit = async (data:any) => {
     try {
-      await axios
-        .post(
-          "https://full-stack-app.com/laravel_auth_jwt_api/public/api/event-create",
-          data
-        )
-        .then((res) => {
-          console.log(res);
-          navigate("/meetings");
-        });
+      // Use the addMeeting function from the store instead of direct axios call
+      await addMeeting(data);
+      navigate("/meetings");
     } catch (error) {
-      console.error(error);
+      console.error("Failed to create meeting:", error);
     }
   };
 
@@ -33,12 +29,12 @@ const Create = () => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0">Blogs post create</h1>
+                <h1 className="m-0">Meeting Create</h1>
               </div>
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
-                    <a href="#">Blogs</a>
+                    <a href="#">Meetings</a>
                   </li>
                   <li className="breadcrumb-item active">Create</li>
                 </ol>
@@ -76,7 +72,7 @@ const Create = () => {
                             <textarea
                               className="form-control"
                               {...register("detail", { required: true })}
-                              placeholder="Enter content"
+                              placeholder="Enter meeting details"
                             ></textarea>
                             {errors.detail && (
                               <span className="text-danger">
@@ -91,7 +87,7 @@ const Create = () => {
                             <input
                               type="text"
                               className="form-control"
-                              placeholder="Enter author"
+                              placeholder="Enter participant"
                               {...register("user", { required: true })}
                             />
                             {errors.user && (
@@ -107,7 +103,7 @@ const Create = () => {
                             <input
                               type="text"
                               className="form-control"
-                              placeholder="Enter author"
+                              placeholder="Enter start time"
                               {...register("start", { required: true })}
                             />
                             {errors.start && (
@@ -123,7 +119,7 @@ const Create = () => {
                             <input
                               type="text"
                               className="form-control"
-                              placeholder="Enter author"
+                              placeholder="Enter end time"
                               {...register("end", { required: true })}
                             />
                             {errors.end && (
@@ -135,12 +131,25 @@ const Create = () => {
                         </div>
                         <div className="col-md-12">
                           <div className="float-right">
-                            <button type="submit" className="btn btn-primary">
-                              <i className="fas fa-check-circle"></i> Submit
+                          <button
+                              type="submit"
+                              className="btn btn-primary"
+                              disabled={isLoading}
+                            >
+                              {isLoading ? (
+                                <>
+                                  <span className="spinner-border spinner-border-sm mr-2"></span>
+                                  Loading...
+                                </>
+                              ) : (
+                                <>
+                                  <i className="fas fa-check-circle"></i> Submit
+                                </>
+                              )}
                             </button>{" "}
                             <button
                               type="button"
-                              onClick={() => navigate("/blogs")}
+                              onClick={() => navigate("/meetings")}
                               className="btn btn-danger"
                             >
                               <i className="fas fa-times-circle mr-1"></i>

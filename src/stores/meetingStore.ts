@@ -56,7 +56,7 @@ export const useMeetingStore = create<MeetingState>((set) => ({
     set({ isLoading: true });
     try {
       const response = await axios.post<SingleMeetingResponse>(
-        "https://full-stack-app.com/laravel_auth_jwt_api/public/api/events",
+        "https://full-stack-app.com/laravel_auth_jwt_api/public/api/event-create",
         meetingData
       );
       set((state) => ({
@@ -75,7 +75,7 @@ export const useMeetingStore = create<MeetingState>((set) => ({
     set({ isLoading: true });
     try {
       const response = await axios.put<SingleMeetingResponse>(
-        `https://full-stack-app.com/laravel_auth_jwt_api/public/api/events/${id}`,
+        `https://full-stack-app.com/laravel_auth_jwt_api/public/api/event-update/${id}`,
         meetingData
       );
       set((state) => ({
@@ -96,7 +96,7 @@ export const useMeetingStore = create<MeetingState>((set) => ({
     set({ isLoading: true });
     try {
       await axios.delete(
-        `https://full-stack-app.com/laravel_auth_jwt_api/public/api/events/${id}`
+        `https://full-stack-app.com/laravel_auth_jwt_api/public/api/event-delete/${id}`
       );
       set((state) => ({
         meetings: state.meetings.filter((meeting) => meeting.id !== id),

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import { useMeetingStore } from "../../stores/meetingStore";
 import { DataTable } from "mantine-datatable";
-import axios from "axios";
 
 const PAGE_SIZES: number[] = [10, 20, 30];
 
@@ -20,7 +19,8 @@ interface Meeting {
 
 const Meetings = () => {
   // Use The Zustand store
-  const { meetings, fetchMeetings, isLoading } = useMeetingStore();
+  const { meetings, fetchMeetings, deleteMeeting, isLoading } =
+    useMeetingStore();
 
   const [pageSize, setPageSize] = useState<number>(PAGE_SIZES[0]);
   const [page, setPage] = useState<number>(1);
@@ -28,16 +28,15 @@ const Meetings = () => {
     meetings.slice(0, pageSize)
   );
 
-  const handleDeleteEvent = (meetings:any,data:any)=> {
-    axios
-      .delete(
-        "https://full-stack-app.com/laravel_auth_jwt_api/public/api/event-delete/" +
-          meetings.id,data
-      )
-      .then((res) => {
-        console.log(res);
-        fetchMeetings();
-      });
+  // Updated to use the deleteMeeting function from the store
+  const handleDeleteEvent = async (meeting: Meeting) => {
+    try {
+      await deleteMeeting(meeting.id);
+      console.log("Meeting deleted successfully");
+      // No need to call fetchMeetings manually as the store updates automatically
+    } catch (error) {
+      console.error("Failed to delete meeting:", error);
+    }
   };
 
   useEffect(() => {
@@ -81,11 +80,15 @@ const Meetings = () => {
           <div className="container-fluid">
             <div className="row">
               <div className="col-md-12">
-                <Link to={"/meetings/create"} className="btn btn-success mb-2">
-                  Create Meeting
-                </Link>
                 <div className="card">
                   <div className="card-body">
+                    <Link
+                      to={"/meetings/create"}
+                      className="btn btn-success mb-2"
+                    >
+                      <i className="fas fa-pen"></i>{' '}
+                      Meeting Create
+                    </Link>
                     <DataTable
                       style={{
                         fontFamily: "Prompt",
@@ -143,26 +146,36 @@ const Meetings = () => {
                           accessor: "created_at",
                           title: "วันที่สร้าง",
                           titleStyle: { textAlign: "center" },
-                          render: ({ created_at }: { created_at: string }) =>
-                            dayjs(created_at).format("DD-MMM-YYYY"),
+                          render: (record: Meeting) =>
+                            dayjs(record.created_at).format("DD-MMM-YYYY"),
                         },
                         {
                           accessor: "actions",
                           title: "ดำเนินการ",
                           textAlignment: "center",
-                            render: (meetings) => (
-                              <>
-                                <Link
-                                  to={"/meetings/update/" + meetings.id}
-                                  className="btn btn-info btn-sm"
-                                >
-                                  <i className="fas fa-edit"></i>
-                                </Link>{" "}
-                                <button onClick={()=>handleDeleteEvent(meetings,{ reason: "User request" })} className="btn btn-danger btn-sm">
-                                  <i className="fas fa-trash"></i>
-                                </button>
-                              </>
-                            ),
+                          render: (meeting: Meeting) => (
+                            <>
+                              <Link
+                                to={"/meetings/view/" + meeting.id}
+                                className="btm btn-primary btn-sm"
+                              >
+                                <i className="fas fa-eye"></i>
+                              </Link>{" "}
+                              <Link
+                                to={"/meetings/update/" + meeting.id}
+                                className="btn btn-info btn-sm"
+                              >
+                                <i className="fas fa-edit"></i>
+                              </Link>{" "}
+                              <button
+                                onClick={() => handleDeleteEvent(meeting)}
+                                className="btn btn-danger btn-sm"
+                                disabled={isLoading}
+                              >
+                                <i className="fas fa-trash"></i>
+                              </button>
+                            </>
+                          ),
                         },
                       ]}
                     />

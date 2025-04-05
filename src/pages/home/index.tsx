@@ -1,4 +1,3 @@
-
 const Home = () => {
   return (
     <>
@@ -20,50 +19,64 @@ const Home = () => {
         <div className="content">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-md-3">
-                <div className="info-box">
-                  <span className="info-box-icon bg-primary elevation-1">
+              <div className="col-lg-3">
+                <div className="small-box bg-primary">
+                  <div className="inner">
+                    <h3>10%</h3>
+                    <p>CPU Traffic</p>
+                  </div>
+                  <div className="icon">
                     <i className="fas fa-cog"></i>
-                  </span>
-                  <div className="info-box-content">
-                    <span className="info-box-text">CPU Traffic</span>
-                    <span className="info-box-number">
-                      10<small>%</small>
-                    </span>
                   </div>
+                  <a href="#" className="small-box-footer">
+                    <span className="text-white">More info</span>{" "}
+                    <i className="fas fa-arrow-circle-right text-white"></i>
+                  </a>
                 </div>
               </div>
               <div className="col-md-3">
-                <div className="info-box">
-                  <span className="info-box-icon bg-danger elevation-1">
+                <div className="small-box bg-danger">
+                  <div className="inner">
+                    <h3>41,410</h3>
+                    <p>Blogs</p>
+                  </div>
+                  <div className="icon">
                     <i className="far fa-comment-alt"></i>
-                  </span>
-                  <div className="info-box-content">
-                    <span className="info-box-text">Blogs</span>
-                    <span className="info-box-number">41,410</span>
                   </div>
+                  <a href="#" className="small-box-footer">
+                    <span className="text-white">More info</span>{" "}
+                    <i className="fas fa-arrow-circle-right text-white"></i>
+                  </a>
                 </div>
               </div>
               <div className="col-md-3">
-                <div className="info-box">
-                  <span className="info-box-icon bg-success elevation-1">
+                <div className="small-box bg-success">
+                  <div className="inner">
+                    <h3>760</h3>
+                    <p>Sales</p>
+                  </div>
+                  <div className="icon">
                     <i className="fas fa-shopping-cart"></i>
-                  </span>
-                  <div className="info-box-content">
-                    <span className="info-box-text">Sales</span>
-                    <span className="info-box-number">760</span>
                   </div>
+                  <a href="#" className="small-box-footer">
+                    <span className="text-white">More info</span>{" "}
+                    <i className="fas fa-arrow-circle-right text-white"></i>
+                  </a>
                 </div>
               </div>
               <div className="col-md-3">
-                <div className="info-box">
-                  <span className="info-box-icon bg-info elevation-1">
-                    <i className="fas fa-users"></i>
-                  </span>
-                  <div className="info-box-content">
-                    <span className="info-box-text">New Members</span>
-                    <span className="info-box-number">2,000</span>
+              <div className="small-box bg-info">
+                  <div className="inner">
+                    <h3>2,000</h3>
+                    <p>New Members</p>
                   </div>
+                  <div className="icon">
+                  <i className="fas fa-users"></i>
+                  </div>
+                  <a href="#" className="small-box-footer">
+                    <span className="text-white">More info</span>{" "}
+                    <i className="fas fa-arrow-circle-right text-white"></i>
+                  </a>
                 </div>
               </div>
             </div>

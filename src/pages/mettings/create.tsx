@@ -1,21 +1,28 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useMeetingStore } from "../../stores/meetingStore"// Adjust import path as needed
+import { useMeetingStore } from "../../stores/meetingStore"; // Adjust import path as needed
+import Swal from 'sweetalert2'
 
 const Create = () => {
   const navigate = useNavigate();
   const { addMeeting, isLoading } = useMeetingStore();
-  
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handleCreateSubmit = async (data:any) => {
+  const handleCreateSubmit = async (data: any) => {
     try {
       // Use the addMeeting function from the store instead of direct axios call
       await addMeeting(data);
+      Swal.fire({
+        icon: "success",
+        title: "Your Meeting has been created",
+        showConfirmButton: false,
+        timer: 2000,
+      });
       navigate("/meetings");
     } catch (error) {
       console.error("Failed to create meeting:", error);
@@ -131,7 +138,7 @@ const Create = () => {
                         </div>
                         <div className="col-md-12">
                           <div className="float-right">
-                          <button
+                            <button
                               type="submit"
                               className="btn btn-primary"
                               disabled={isLoading}

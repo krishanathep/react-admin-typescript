@@ -2,13 +2,15 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMeetingStore } from "../../stores/meetingStore"; // Adjust the import path as needed
+import Swal from "sweetalert2";
 
 const Update = () => {
   const { id } = useParams();
   const meetingId = id ? parseInt(id) : 0;
   const navigate = useNavigate();
-  const { updateMeeting, meetings, fetchMeetings, isLoading } = useMeetingStore();
-  
+  const { updateMeeting, meetings, fetchMeetings, isLoading } =
+    useMeetingStore();
+
   const {
     register,
     handleSubmit,
@@ -22,7 +24,9 @@ const Update = () => {
       fetchMeetings();
     } else {
       // Find the current meeting and populate the form
-      const currentMeeting = meetings.find(meeting => meeting.id === meetingId);
+      const currentMeeting = meetings.find(
+        (meeting) => meeting.id === meetingId
+      );
       if (currentMeeting) {
         reset({
           title: currentMeeting.title,
@@ -36,9 +40,15 @@ const Update = () => {
   }, [fetchMeetings, meetingId, meetings, reset]);
 
   // Use the store's updateMeeting function
-  const handleUpdateSubmit = async (data:any) => {
+  const handleUpdateSubmit = async (data: any) => {
     try {
       await updateMeeting(meetingId, data);
+      Swal.fire({
+        icon: "success",
+        title: "Your Meeting has been updated",
+        showConfirmButton: false,
+        timer: 2000,
+      });
       navigate("/meetings");
     } catch (error) {
       console.error("Failed to update meeting:", error);
@@ -71,89 +81,89 @@ const Update = () => {
               <div className="col-md-12">
                 <div className="card">
                   <div className="card-body">
-                      <form onSubmit={handleSubmit(handleUpdateSubmit)}>
-                        <div className="row">
-                          <div className="col-md-12">
-                            <div className="form-group">
-                              <label htmlFor="">Title</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter title"
-                                {...register("title", { required: true })}
-                              />
-                              {errors.title && (
-                                <span className="text-danger">
-                                  This field is required
-                                </span>
-                              )}
-                            </div>
+                    <form onSubmit={handleSubmit(handleUpdateSubmit)}>
+                      <div className="row">
+                        <div className="col-md-12">
+                          <div className="form-group">
+                            <label htmlFor="">Title</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder="Enter title"
+                              {...register("title", { required: true })}
+                            />
+                            {errors.title && (
+                              <span className="text-danger">
+                                This field is required
+                              </span>
+                            )}
                           </div>
-                          <div className="col-md-12">
-                            <div className="form-group">
-                              <label htmlFor="">Detail</label>
-                              <textarea
-                                className="form-control"
-                                {...register("detail", { required: true })}
-                                placeholder="Enter content"
-                              ></textarea>
-                              {errors.detail && (
-                                <span className="text-danger">
-                                  This field is required
-                                </span>
-                              )}
-                            </div>
+                        </div>
+                        <div className="col-md-12">
+                          <div className="form-group">
+                            <label htmlFor="">Detail</label>
+                            <textarea
+                              className="form-control"
+                              {...register("detail", { required: true })}
+                              placeholder="Enter content"
+                            ></textarea>
+                            {errors.detail && (
+                              <span className="text-danger">
+                                This field is required
+                              </span>
+                            )}
                           </div>
-                          <div className="col-md-12">
-                            <div className="form-group">
-                              <label htmlFor="">User</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter user"
-                                {...register("user", { required: true })}
-                              />
-                              {errors.user && (
-                                <span className="text-danger">
-                                  This field is required
-                                </span>
-                              )}
-                            </div>
+                        </div>
+                        <div className="col-md-12">
+                          <div className="form-group">
+                            <label htmlFor="">User</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder="Enter user"
+                              {...register("user", { required: true })}
+                            />
+                            {errors.user && (
+                              <span className="text-danger">
+                                This field is required
+                              </span>
+                            )}
                           </div>
-                          <div className="col-md-12">
-                            <div className="form-group">
-                              <label htmlFor="">Start</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter start time"
-                                {...register("start", { required: true })}
-                              />
-                              {errors.start && (
-                                <span className="text-danger">
-                                  This field is required
-                                </span>
-                              )}
-                            </div>
+                        </div>
+                        <div className="col-md-12">
+                          <div className="form-group">
+                            <label htmlFor="">Start</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder="Enter start time"
+                              {...register("start", { required: true })}
+                            />
+                            {errors.start && (
+                              <span className="text-danger">
+                                This field is required
+                              </span>
+                            )}
                           </div>
-                          <div className="col-md-12">
-                            <div className="form-group">
-                              <label htmlFor="">End</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter end time"
-                                {...register("end", { required: true })}
-                              />
-                              {errors.end && (
-                                <span className="text-danger">
-                                  This field is required
-                                </span>
-                              )}
-                            </div>
+                        </div>
+                        <div className="col-md-12">
+                          <div className="form-group">
+                            <label htmlFor="">End</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder="Enter end time"
+                              {...register("end", { required: true })}
+                            />
+                            {errors.end && (
+                              <span className="text-danger">
+                                This field is required
+                              </span>
+                            )}
                           </div>
-                          <div className="col-md-12">
-                            <div className="float-right">
+                        </div>
+                        <div className="col-md-12">
+                          <div className="float-right">
                             <button
                               type="submit"
                               className="btn btn-primary"
@@ -170,18 +180,18 @@ const Update = () => {
                                 </>
                               )}
                             </button>{" "}
-                              <button
-                                type="button"
-                                onClick={() => navigate("/meetings")}
-                                className="btn btn-danger"
-                              >
-                                <i className="fas fa-times-circle mr-1"></i>
-                                Cancel
-                              </button>
-                            </div>
+                            <button
+                              type="button"
+                              onClick={() => navigate("/meetings")}
+                              className="btn btn-danger"
+                            >
+                              <i className="fas fa-times-circle mr-1"></i>
+                              Cancel
+                            </button>
                           </div>
                         </div>
-                      </form>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>

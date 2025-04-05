@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import { useMeetingStore } from "../../stores/meetingStore";
 import { DataTable } from "mantine-datatable";
+import Swal from "sweetalert2";
 
 const PAGE_SIZES: number[] = [10, 20, 30];
 
@@ -30,12 +31,36 @@ const Meetings = () => {
 
   // Updated to use the deleteMeeting function from the store
   const handleDeleteEvent = async (meeting: Meeting) => {
-    try {
-      await deleteMeeting(meeting.id);
-      console.log("Meeting deleted successfully");
-      // No need to call fetchMeetings manually as the store updates automatically
-    } catch (error) {
-      console.error("Failed to delete meeting:", error);
+    const result = await Swal.fire({
+      title: "ยืนยันการลบเอกสาร",
+      text: "คุณต้องการลบเอกสารนี้ใช่ไหม",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "ยกเลิก",
+      confirmButtonText: "ยืนยัน",
+    });
+  
+    if (result.isConfirmed) {
+      try {
+        await deleteMeeting(meeting.id); // รอให้การลบเสร็จสิ้น
+        console.log("Meeting deleted successfully");
+  
+        await Swal.fire({
+          icon: "success",
+          title: "ระบบได้ทำการลบเอกสารเรียบร้อยแล้ว",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      } catch (error) {
+        console.error("Failed to delete meeting:", error);
+        await Swal.fire({
+          icon: "error",
+          title: "เกิดข้อผิดพลาด",
+          text: "ไม่สามารถลบเอกสารได้ กรุณาลองใหม่อีกครั้ง",
+        });
+      }
     }
   };
 
@@ -86,8 +111,7 @@ const Meetings = () => {
                       to={"/meetings/create"}
                       className="btn btn-success mb-2"
                     >
-                      <i className="fas fa-pen"></i>{' '}
-                      Meeting Create
+                      <i className="fas fa-pen"></i> Meeting Create
                     </Link>
                     <DataTable
                       style={{

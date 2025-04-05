@@ -6,7 +6,7 @@ import axios from "axios";
 const View = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { meetings, fetchMeetings, isLoading } = useMeetingStore();
+  const { isLoading } = useMeetingStore();
 
   const [title, setTitle]=useState('')
   const [detail, setDetail]=useState('')

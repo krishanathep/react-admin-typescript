@@ -25,7 +25,7 @@ const Sidebar = () => {
               <li className="nav-item">
                 <Link to="/" className="nav-link">
                   <i className="nav-icon fas fa-home"></i>
-                  <p>Home</p>
+                  <p>Dashobard</p>
                 </Link>
               </li>
               {/* <li className="nav-item">
@@ -34,10 +34,16 @@ const Sidebar = () => {
                   <p>Blogs</p>
                 </Link>
               </li> */}
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to="/meetings" className="nav-link">
                   <i className="nav-icon fas fa-calendar"></i>
                   <p>Meetings</p>
+                </Link>
+              </li> */}
+              <li className="nav-item">
+                <Link to="/overtime" className="nav-link">
+                  <i className="nav-icon fas fa-users"></i>
+                  <p>Employees</p>
                 </Link>
               </li>
              </ul>

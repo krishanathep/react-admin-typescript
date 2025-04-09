@@ -19,6 +19,11 @@ import MeetingCreate from './pages/mettings/create'
 import MeetingUpdate from './pages/mettings/update'
 import MeetingView from './pages/mettings/view'
 
+import Overtime from './pages/overtime'
+import OvertimeView from './pages/overtime/view'
+import OvertimeCreate from "./pages/overtime/create";
+import OvertimeUpdate from "./pages/overtime/update";
+
 // ถ้าไม่มีการ login จะไม่สามารถเข้าใช้งานได้และ redirect ไปหน้า login
 const RequireAuth: React.FC = () => {
   const isAuthenticated = useIsAuthenticated();
@@ -44,6 +49,10 @@ const RoutesPage: React.FC = () => {
             <Route path="/meetings/create" element={<MeetingCreate />} />
             <Route path="/meetings/update/:id" element={<MeetingUpdate />} />
             <Route path="/meetings/view/:id" element={<MeetingView />} />
+            <Route path="/overtime" element={<Overtime/>}/>
+            <Route path="/overtime/view/:id" element={<OvertimeView/>}/>
+            <Route path="/overtime/create" element={<OvertimeCreate/>}/>
+            <Route path="/overtime/update/:id" element={<OvertimeUpdate/>}/>
           </Route>
         </Route>
       </Routes>

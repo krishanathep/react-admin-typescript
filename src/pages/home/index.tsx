@@ -9,7 +9,7 @@ const Home = () => {
     const response = await fetch(`${API_BASE_URL}/employees`);
     if (!response.ok) throw new Error('Failed to fetch employee count');
     const data = await response.json();
-    return data.length; // คืนค่าจำนวนพนักงานแทนข้อมูลทั้งหมด
+    return data.employees.length; // คืนค่าจำนวนพนักงานแทนข้อมูลทั้งหมด
   };
 
   // Use React Query to fetch data
@@ -107,8 +107,7 @@ const Home = () => {
                     </div>
                   )}
                   <div className="inner">
-                    {/* <h3>{employeeQuery.isSuccess ? employeeQuery.data?.count?.toLocaleString() || '0' : '0'}</h3> */}
-                    <h3>10,000</h3>
+                    <h3>{employeeQuery.isSuccess ? employeeQuery.data.toLocaleString() : '0'}</h3>
                     <p>New Employees</p>
                   </div>
                   <div className="icon">

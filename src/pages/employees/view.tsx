@@ -137,7 +137,7 @@ const EmployeeView = () => {
                           <div className="float-right">
                             <button
                               type="button"
-                              onClick={() => navigate("/overtime")}
+                              onClick={() => navigate("/employees")}
                               className="btn btn-danger"
                             >
                               <i className="fas fa-arrow-circle-left"></i>

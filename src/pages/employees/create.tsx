@@ -40,7 +40,7 @@ const EmployeeCreate = () => {
         showConfirmButton: false,
         timer: 2000,
       });
-      navigate("/overtime");
+      navigate("/employees");
     },
     onError: (error) => {
       console.error("Failed to employee request:", error);
@@ -227,7 +227,7 @@ const EmployeeCreate = () => {
                             </button>{" "}
                             <button
                               type="button"
-                              onClick={() => navigate("/overtime")}
+                              onClick={() => navigate("/employees")}
                               className="btn btn-danger"
                             >
                                <i className="fas fa-arrow-circle-left"></i>

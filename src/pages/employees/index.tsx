@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import { DataTable } from "mantine-datatable";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { TextInput } from "@mantine/core";
+import { IconSearch } from "@tabler/icons-react";
 import Swal from "sweetalert2";
 import axios from "axios";
 
@@ -83,7 +85,7 @@ const Employees = () => {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "Cancel"
+      cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
         deleteMutation.mutate(employee.id);
@@ -126,15 +128,13 @@ const Employees = () => {
             <div className="row">
               <div className="col-md-12">
                 <div className="card">
-                  <div className="card-header bg-light">
-                    Employees list
-                  </div>
+                  <div className="card-header bg-light">Employees list</div>
                   <div className="card-body">
                     <div className="row">
                       <div className="col-md-12">
                         <div className="float-right">
                           <Link
-                            to={"/overtime/create"}
+                            to={"/employees/create"}
                             className="btn btn-success mb-2"
                           >
                             <i className="fas fa-plus"></i> Create
@@ -174,21 +174,58 @@ const Employees = () => {
                               accessor: "emp_id",
                               title: "รหัสพนักงาน",
                               textAlignment: "center",
+                              render: ({ emp_id }) => `${emp_id}`,
+                              filter: (
+                                <TextInput
+                                  //label="รหัสพนักงาน"
+                                  //description="Show employees whose id include the specified text"
+                                  placeholder="Search emloyees..."
+                                  icon={<IconSearch size={16} />}
+                                  //style={{ fontFamily: "Prompt", fontSize: "14px" }}
+                                />
+                              ),
                             },
                             {
                               accessor: "emp_name",
                               title: "ชื่อพนักงาน",
                               titleStyle: { textAlign: "center" },
+                              render: ({ emp_name }) => `${emp_name}`,
+                              filter: (
+                                <TextInput
+                                  //label="ชื่อพนักงาน"
+                                  //description="Show employees whose name include the specified text"
+                                  placeholder="Search emloyees..."
+                                  icon={<IconSearch size={16} />}
+                                />
+                              ),
                             },
                             {
                               accessor: "bus_group",
                               title: "ประเภทงาน",
                               textAlignment: "center",
+                              render: ({ bus_group }) => `${bus_group}`,
+                              filter: (
+                                <TextInput
+                                  //label="ชื่อพนักงาน"
+                                  //description="Show employees whose name include the specified text"
+                                  placeholder="Search emloyees..."
+                                  icon={<IconSearch size={16} />}
+                                />
+                              ),
                             },
                             {
                               accessor: "position",
                               title: "ตำแหน่ง",
                               titleStyle: { textAlign: "center" },
+                              render: ({ position }) => `${position}`,
+                              filter: (
+                                <TextInput
+                                  //label="ชื่อพนักงาน"
+                                  //description="Show employees whose name include the specified text"
+                                  placeholder="Search emloyees..."
+                                  icon={<IconSearch size={16} />}
+                                />
+                              ),
                             },
                             // {
                             //   accessor: "agency",
@@ -204,6 +241,15 @@ const Employees = () => {
                               accessor: "dept",
                               title: "ฝ่ายงาน",
                               textAlignment: "center",
+                              render: ({ dept }) => `${dept}`,
+                              filter: (
+                                <TextInput
+                                  //label="ชื่อพนักงาน"
+                                  //description="Show employees whose name include the specified text"
+                                  placeholder="Search emloyees..."
+                                  icon={<IconSearch size={16} />}
+                                />
+                              ),
                             },
                             // {
                             //   accessor: "start_date",
@@ -216,6 +262,14 @@ const Employees = () => {
                               textAlignment: "center",
                               render: (record: Employee) =>
                                 dayjs(record.created_at).format("DD-MMM-YYYY"),
+                              filter: (
+                                <TextInput
+                                  //label="ชื่อพนักงาน"
+                                  //description="Show employees whose name include the specified text"
+                                  placeholder="Search emloyees..."
+                                  icon={<IconSearch size={16} />}
+                                />
+                              ),
                             },
                             {
                               accessor: "actions",
@@ -224,13 +278,13 @@ const Employees = () => {
                               render: (employee: Employee) => (
                                 <>
                                   <Link
-                                    to={`/overtime/view/${employee.id}`}
+                                    to={`/employees/view/${employee.id}`}
                                     className="btn btn-primary btn-sm"
                                   >
                                     <i className="fas fa-eye"></i> View
                                   </Link>{" "}
                                   <Link
-                                    to={`/overtime/update/${employee.id}`}
+                                    to={`/employees/update/${employee.id}`}
                                     className="btn btn-info btn-sm"
                                   >
                                     <i className="fas fa-edit"></i> Edit

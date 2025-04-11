@@ -89,7 +89,7 @@ const EmployeeUpdate = () => {
         showConfirmButton: false,
         timer: 2000,
       });
-      navigate("/overtime");
+      navigate("/employees");
     },
     onError: (error) => {
       console.error("Failed to update employee:", error);
@@ -139,7 +139,7 @@ const EmployeeUpdate = () => {
             </div>
             <button
               className="btn btn-secondary"
-              onClick={() => navigate("/overtime")}
+              onClick={() => navigate("/employees")}
             >
               <i className="fas fa-arrow-circle-left"></i> ย้อนกลับ
             </button>
@@ -319,7 +319,7 @@ const EmployeeUpdate = () => {
                             </button>{" "}
                             <button
                               type="button"
-                              onClick={() => navigate("/overtime")}
+                              onClick={() => navigate("/employees")}
                               className="btn btn-danger"
                             >
                               <i className="fas fa-arrow-circle-left"></i>
